@@ -3,6 +3,10 @@
 
 """Tests for `lightcheck` package."""
 
+import sys
+sys.path.append('..')
+
+
 import pytest
 
 from click.testing import CliRunner
