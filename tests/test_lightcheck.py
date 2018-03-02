@@ -4,7 +4,6 @@
 """Tests for `lightcheck` package."""
 
 import sys
-sys.path.append('..')
 import pytest
 from click.testing import CliRunner
 from lightcheck import lightcheck
@@ -29,9 +28,14 @@ def test_content(response):
 
 
 def test_command_line_interface():
-    ifile = "./data/test_data.txt"
+    ifile = "./data/input_assign3.txt"
     N, instructions = utils.parseFile(ifile)
     assert N is not None
+    
+    ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+    N, instructions = utils.parseFile(ifile)
+    assert N is not None
+    
     
 #     """Test the CLI."""
 #     runner = CliRunner()
