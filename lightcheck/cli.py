@@ -6,8 +6,6 @@ import sys
 import click
 click.disable_unicode_literals_warning = True
 
-from utils import parseFile, LightChecker
-
 @click.command()
 @click.option("--input", default=None, help="input URI (file or URL)")
 def main(input=None):
