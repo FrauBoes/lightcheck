@@ -6,6 +6,7 @@ Created on 1 Mar 2018
 
 from urllib.request import urlopen
 
+# parse input from url or local file
 def parseFile(input):
     
     # read from url
@@ -31,3 +32,26 @@ def parseFile(input):
         return N, instructions
     
     return
+
+class LightChecker:
+    
+    lights = None
+    
+    def __init__(self, N):
+        self.lights = [[False]*N for _ in range(N)]
+        # placeholder
+ 
+    def apply(self, cmd):
+        if cmd is 'turn on':
+            pass
+        elif cmd is 'turn off':
+            pass
+        elif cmd is 'switch':
+            pass
+        # parse command and apply it to data structure
+        return None
+      
+    def count(self):
+        return None
+        # placeholder, return count
+        # count lights that are on

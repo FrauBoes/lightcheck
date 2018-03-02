@@ -2,8 +2,11 @@
 
 """Console script for lightcheck."""
 
+import sys
 import click
 click.disable_unicode_literals_warning = True
+
+from utils import parseFile, LightChecker
 
 @click.command()
 @click.option("--input", default=None, help="input URI (file or URL)")
@@ -13,15 +16,14 @@ def main(input=None):
     
     N, instructions = parseFile(input)
     
-    lightChecker = LightChecker(N)
-    
-    for instruction in instructions:
-        lightChecker.apply(instruction)
-        
-    print('# lights occupied: ', lightChecker.countOccupied())
-    return 0
+    lights = LightChecker(N)
+#     
+#     for instruction in instructions:
+#         lights.apply(instruction)
+#         
+#     print('# lights occupied: ', lights.count())
+#     return 0
 
 
 if __name__ == "__main__":
-    import sys
     sys.exit(main())

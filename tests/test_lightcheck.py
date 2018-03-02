@@ -35,8 +35,14 @@ def test_command_line_interface():
     ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
     N, instructions = utils.parseFile(ifile)
     assert N is not None
-    
-    
+
+def test_create_light():
+    lights = LightChecker(2)
+    # test __init__ method
+    assert lights == [[False, False], [False, False]]
+
+
+
 #     """Test the CLI."""
 #     runner = CliRunner()
 #     result = runner.invoke(cli.main)
