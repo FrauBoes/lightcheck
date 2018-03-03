@@ -4,6 +4,7 @@
 
 import sys
 import click
+
 click.disable_unicode_literals_warning = True
 
 @click.command()
@@ -15,10 +16,10 @@ def main(input=None):
     N, instructions = parseFile(input)
     
     lights = LightChecker(N)
-#     
-#     for instruction in instructions:
-#         lights.apply(instruction)
-#         
+     
+    for instruction in instructions:
+        lights.apply(instruction)
+         
 #     print('# lights occupied: ', lights.count())
 #     return 0
 

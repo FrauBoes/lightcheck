@@ -38,8 +38,9 @@ class LightChecker:
     lights = None
     
     def __init__(self, N):
+        # create 2-dimensional array with default value False
         self.lights = [[False]*N for _ in range(N)]
-        # placeholder
+
  
     def apply(self, cmd):
         if cmd is 'turn on':

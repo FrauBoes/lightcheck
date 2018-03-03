@@ -7,7 +7,7 @@ import sys
 import pytest
 from click.testing import CliRunner
 from lightcheck.utils import LightChecker
-from lightcheck import utils
+from lightcheck import utils as ut
 from lightcheck import cli
 
 
@@ -21,25 +21,42 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-# def test_content(response):
-#     """Sample pytest test function with the pytest fixture as an argument."""
-#     # from bs4 import BeautifulSoup
-#     # assert 'GitHub' in BeautifulSoup(response.content).title.string
-# 
-# 
-# def test_command_line_interface():
-#     ifile = "./data/input_assign3.txt"
-#     N, instructions = utils.parseFile(ifile)
-#     assert N is not None
-#     
-#     ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
-#     N, instructions = utils.parseFile(ifile)
-#     assert N is not None
+def test_content(response):
+    """Sample pytest test function with the pytest fixture as an argument."""
+    # from bs4 import BeautifulSoup
+    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+ 
+ 
+def test_command_line_interface():
+    ifile = "./data/input_assign3.txt"
+    N, instructions = ut.parseFile(ifile)
+    assert N is not None
+     
+    ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+    N, instructions = ut.parseFile(ifile)
+    assert N is not None
+
 
 def test_create_light():
     lights = LightChecker(0)
     assert lights is not None
+
+def test_apply():
+    lights = LightChecker(2)
+    lights.apply('turn on 0,0 through 1,1')
+    assert lights == [[True, True], [True, True]]
+    lights.apply('turn off 0,0 through 1,1')
+    assert lights == [[False, False], [False, False]]
+    lights.apply('switch 0,0 through 1,1')
+    assert lights == [[True, True], [True, True]]
+    lights.apply('switch 0,0 through 2,2')
+    assert lights == [[False, False], [False, False]]
+    lights.apply('sitch 0,0 through 1,1')
+    assert lights == [[False, False], [False, False]]
+    lights.apply('tur on 0,0 through 1,1')
+    assert lights == [[False, False], [False, False]]
     
+
 
     
 #     """Test the CLI."""
