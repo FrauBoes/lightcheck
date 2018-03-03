@@ -56,7 +56,8 @@ def test_apply():
     lights.apply('tur on 0,0 through 1,1')
     assert lights == [[False, False], [False, False]]
     
-
+def test_parse_command():
+    assert ut.parseCommand('turn off 660,55 through 986,197') == ['turn off', [660, 986], [55, 197]]   
 
     
 #     """Test the CLI."""
