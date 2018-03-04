@@ -6,26 +6,10 @@
 import sys
 import pytest
 from click.testing import CliRunner
-from lightcheck.utils import LightChecker
+from lightcheck.lightcheck import LightCheck
 from lightcheck import utils as ut
 from lightcheck import cli
 
-
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
-
-
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
- 
  
 def test_command_line_interface():
     ifile = "./data/input_assign3.txt"
@@ -38,11 +22,12 @@ def test_command_line_interface():
 
 
 def test_create_light():
-    lights = LightChecker(0)
+    lights = LightCheck(0)
     assert lights is not None
 
+
 def test_apply():
-    lights = LightChecker(2)
+    lights = LightCheck(2)
     lights.apply('turn on 0,0 through 1,1')
     assert lights == [[True, True], [True, True]]
     lights.apply('turn off 0,0 through 1,1')
@@ -56,9 +41,12 @@ def test_apply():
     lights.apply('tur on 0,0 through 1,1')
     assert lights == [[False, False], [False, False]]
     
+    
 def test_parse_command():
-    assert ut.parseCommand('turn off 660,55 through 986,197') == ['turn off', [660, 986], [55, 197]]   
-
+    assert ut.parseCommand('turn off 660,55 through 986,197') == ['turn off', [660, 986], [55, 197]]
+    assert ut.parseCommand('turn on 661,55 through 985,197') == ['turn on', [661, 985], [55, 197]]   
+    assert ut.parseCommand('switch 322,558 through 977,958') == ['switch ', [322, 977], [558, 958]]
+    
     
 #     """Test the CLI."""
 #     runner = CliRunner()

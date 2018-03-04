@@ -1,1 +1,3 @@
-{}
+{
+  "tests/test_lightcheck.py::test_apply": true
+}

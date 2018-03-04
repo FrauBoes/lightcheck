@@ -15,13 +15,13 @@ def main(input=None):
     
     N, instructions = parseFile(input)
     
-    lights = LightChecker(N)
+    lights = LightCheck(N)
      
     for instruction in instructions:
         lights.apply(instruction)
-         
-#     print('# lights occupied: ', lights.count())
-#     return 0
+    
+    print('# lights occupied: ', lights.count())
+    return 0
 
 
 if __name__ == "__main__":
