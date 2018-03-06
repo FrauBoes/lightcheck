@@ -15,7 +15,6 @@ class LightCheck:
         # create 2-dimensional array with default value False
         self.grid = [[False]*N for _ in range(N)]
             
-
  
     # parse command and apply it to data structure
     def apply(self, cmd):
@@ -54,10 +53,9 @@ class LightCheck:
     
     # count lights that are on
     def count(self):
+        
         count = 0
         for row in self.grid:
-            for light in row:
-                if light:
-                    count += 1
-        
+            count += sum(row)  # compute the sum (only True values counted)
+            
         return count  
