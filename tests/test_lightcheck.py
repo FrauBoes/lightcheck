@@ -11,15 +11,19 @@ from lightcheck import utils as ut
 from lightcheck import cli
 
  
-def test_command_line_interface():
+def test_read_file():
     ifile = "./data/input_assign3.txt"
     N = ut.parseFile(ifile)
     assert N is not None
      
-    ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+    ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_a.txt"
     N = ut.parseFile(ifile)
     assert N is not None
-
+    
+    ifile = "./data/test_data.txt"
+    N, instructions = ut.parseFile(ifile)
+    assert N == 10
+    assert instructions == ['turn on 0,0 through 9,9', 'turn off 0,0 through 9,9', 'switch 0,0 through 9,9', 'turn off 0,0 through 9,9', 'turn on 2,2 through 7,7']
 
 def test_create_light():
     lights = lc.LightCheck(0)
@@ -47,16 +51,7 @@ def test_parse_command():
     assert ut.parseCommand('turn on 661,55 through 985,197') == ['turn on', [661, 985], [55, 197]]   
     assert ut.parseCommand('switch 322,558 through 977,958') == ['switch ', [322, 977], [558, 958]]
     
-    
- # count lights that are on
-    def count(self):
-        count = 0
-        for row in self.grid:
-            for light in row:
-                if light:
-                    count += 1
-        
-        return count 
+
     
 def test_count():
     list = lc.LightCheck(3)
