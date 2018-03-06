@@ -14,11 +14,10 @@ lightcheck
         :alt: Documentation Status
 
 
-lightcheck counts lights in a grid and r returns lights on.
+Lightcheck counts lights in a grid and r returns lights on.
 
 
 * Free software: MIT license
-* Documentation: https://lightcheck.readthedocs.io.
 
 Description
 --------

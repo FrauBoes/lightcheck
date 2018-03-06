@@ -15,14 +15,14 @@ def main(inp=None):
     """Console script for lightcheck."""
     print("input", inp)
     
-    N, instructions = ut.parseFile(inp)
+    N, instructions = ut.parseFile(inp)  # get size of grid and instructions
     
-    lights = lc.LightCheck(N)
+    lights = lc.LightCheck(N)  # create light grid
      
-    for instruction in instructions:
+    for instruction in instructions:  # apply instructions
         lights.grid.apply(instruction)
     
-    print('# lights occupied: ', lights.grid.count())
+    print('# lights occupied: ', lights.grid.count())  # print count of lights that are on
     return 0
 
 

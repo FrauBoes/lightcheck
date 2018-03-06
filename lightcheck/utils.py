@@ -16,8 +16,8 @@ def parseFile(inp):
         f = urlopen(inp)
         
         with urlopen(inp) as f:
-            N = int(f.readline())
-            for line in f.readlines():
+            N = int(f.readline())  # get size of grid
+            for line in f.readlines():  # get instructions 
                 # cast byte type to string and strip '\n' from each line
                 instructions.append(line.decode('utf-8').rstrip('\n'))
         return N, instructions
@@ -27,8 +27,8 @@ def parseFile(inp):
         N, instructions = None, []
         
         with open(inp, 'r') as f:
-            N = int(f.readline())
-            for line in f.readlines():
+            N = int(f.readline())  # get size of grid
+            for line in f.readlines():  # get instructions 
                 instructions.append(line.rstrip('\n'))  # strip '\n' from each line
         return N, instructions
     
