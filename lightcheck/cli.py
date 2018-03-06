@@ -4,25 +4,25 @@
 
 import sys
 import click
-import lightcheck.utils as ut
-import lightcheck.lightcheck as lc
+from lightcheck import lightcheck as lc
+from lightcheck import utils as ut
 
 click.disable_unicode_literals_warning = True
 
 @click.command()
 @click.option("--input", default=None, help="input URI (file or URL)")
-def main(input=None):
+def main(inp=None):
     """Console script for lightcheck."""
-    print("input", input)
+    print("input", inp)
     
-    N, instructions = ut.parseFile(input)
+    N, instructions = ut.parseFile(inp)
     
     lights = lc.LightCheck(N)
      
     for instruction in instructions:
         lights.grid.apply(instruction)
     
-    #print('# lights occupied: ', lights.grid.count())
+    print('# lights occupied: ', lights.grid.count())
     return 0
 
 

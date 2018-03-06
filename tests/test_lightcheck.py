@@ -6,28 +6,28 @@
 import sys
 import pytest
 from click.testing import CliRunner
-from lightcheck.lightcheck import LightCheck
+from lightcheck import lightcheck as lc
 from lightcheck import utils as ut
 from lightcheck import cli
 
  
 def test_command_line_interface():
     ifile = "./data/input_assign3.txt"
-    N, instructions = ut.parseFile(ifile)
+    N = ut.parseFile(ifile)
     assert N is not None
      
     ifile = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
-    N, instructions = ut.parseFile(ifile)
+    N = ut.parseFile(ifile)
     assert N is not None
 
 
 def test_create_light():
-    lights = LightCheck(0)
+    lights = lc.LightCheck(0)
     assert lights is not None
 
 
 def test_apply():
-    lights = LightCheck(2)
+    lights = lc.LightCheck(2)
     lights.apply('turn on 0,0 through 1,1')
     assert lights.grid == [[True, True], [True, True]]
     lights.apply('turn off 0,0 through 1,1')
@@ -48,11 +48,25 @@ def test_parse_command():
     assert ut.parseCommand('switch 322,558 through 977,958') == ['switch ', [322, 977], [558, 958]]
     
     
-#     """Test the CLI."""
-#     runner = CliRunner()
-#     result = runner.invoke(cli.main)
-#     assert result.exit_code == 0
-#     assert 'lightcheck.cli.main' in result.output
-#     help_result = runner.invoke(cli.main, ['--help'])
-#     assert help_result.exit_code == 0
-#     assert '--help  Show this message and exit.' in help_result.output
+ # count lights that are on
+    def count(self):
+        count = 0
+        for row in self.grid:
+            for light in row:
+                if light:
+                    count += 1
+        
+        return count 
+    
+def test_count():
+    list = lc.LightCheck(3)
+    assert list.count() == 0
+    
+# """Test the CLI."""
+# runner = CliRunner()
+# result = runner.invoke(cli.main)
+# assert result.exit_code == 0
+# assert 'lightcheck.cli.main' in result.output
+# help_result = runner.invoke(cli.main, ['--help'])
+# assert help_result.exit_code == 0
+# assert '--help  Show this message and exit.' in help_result.output

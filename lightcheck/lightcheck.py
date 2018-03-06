@@ -3,7 +3,7 @@
 """Main module."""
 
 import re
-import lightcheck.utils as ut
+from lightcheck import utils as ut
 
 class LightCheck:
     
@@ -28,36 +28,36 @@ class LightCheck:
         
             if instruction_parsed[0] =='turn on':
                 for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
-                    for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
+                    for light in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
                         try:
-                            self.grid[row][column] = True
+                            self.grid[row][light] = True
                         except IndexError:
                             continue
                         
             elif instruction_parsed[0] =='turn off':
                 for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
-                    for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
+                    for light in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
                         try:
-                            self.grid[row][column] = False
+                            self.grid[row][light] = False
                         except IndexError:
                             continue            
             elif instruction_parsed[0] =='switch ':
                 for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
-                    for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
+                    for light in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
                         try:
-                            self.grid[row][column] = not self.grid[row][column]
+                            self.grid[row][light] = not self.grid[row][light]
                         except IndexError:
                             continue
             
         return None
     
     
-    
-    
-    
-      
+    # count lights that are on
     def count(self):
+        count = 0
+        for row in self.grid:
+            for light in row:
+                if light:
+                    count += 1
         
-        return None
-        # placeholder, return count
-        # count lights that are on
+        return count  
