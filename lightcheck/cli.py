@@ -4,6 +4,8 @@
 
 import sys
 import click
+import lightcheck.utils as ut
+import lightcheck.lightcheck as lc
 
 click.disable_unicode_literals_warning = True
 
@@ -13,14 +15,14 @@ def main(input=None):
     """Console script for lightcheck."""
     print("input", input)
     
-    N, instructions = parseFile(input)
+    N, instructions = ut.parseFile(input)
     
-    lights = LightCheck(N)
+    lights = lc.LightCheck(N)
      
     for instruction in instructions:
-        lights.apply(instruction)
+        lights.grid.apply(instruction)
     
-    print('# lights occupied: ', lights.count())
+    #print('# lights occupied: ', lights.grid.count())
     return 0
 
 

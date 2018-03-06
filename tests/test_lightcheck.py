@@ -29,17 +29,17 @@ def test_create_light():
 def test_apply():
     lights = LightCheck(2)
     lights.apply('turn on 0,0 through 1,1')
-    assert lights == [[True, True], [True, True]]
+    assert lights.grid == [[True, True], [True, True]]
     lights.apply('turn off 0,0 through 1,1')
-    assert lights == [[False, False], [False, False]]
+    assert lights.grid == [[False, False], [False, False]]
     lights.apply('switch 0,0 through 1,1')
-    assert lights == [[True, True], [True, True]]
+    assert lights.grid == [[True, True], [True, True]]
     lights.apply('switch 0,0 through 2,2')
-    assert lights == [[False, False], [False, False]]
+    assert lights.grid == [[False, False], [False, False]]
     lights.apply('sitch 0,0 through 1,1')
-    assert lights == [[False, False], [False, False]]
+    assert lights.grid == [[False, False], [False, False]]
     lights.apply('tur on 0,0 through 1,1')
-    assert lights == [[False, False], [False, False]]
+    assert lights.grid == [[False, False], [False, False]]
     
     
 def test_parse_command():

@@ -3,24 +3,18 @@
 """Main module."""
 
 import re
-from lightcheck.utils import *
+import lightcheck.utils as ut
 
 class LightCheck:
     
-    lights = None
+    grid = None
     
     
     def __init__(self, N):
         
         # create 2-dimensional array with default value False
-        self.lights = [[False]*N for _ in range(N)]
-
-    # def __getitem__(self, key)
-    
-    # def __setitem__(self, key)
-    
-    # def __iter__(self)
-    
+        self.grid = [[False]*N for _ in range(N)]
+            
 
  
     # parse command and apply it to data structure
@@ -30,25 +24,31 @@ class LightCheck:
         if pattern.match(cmd) is None:  # returns True if there is a match, otherwise None
             return
         else:
-            instruction_parsed = parseCommand(cmd)  # [instruction, column_coordinates, row_coordinates]
+            instruction_parsed = ut.parseCommand(cmd)  # [instruction, column_coordinates, row_coordinates]
         
             if instruction_parsed[0] =='turn on':
-                new_value = 'True'
                 for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
                     for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
-                        self[row][column] = new_value
-            
-            elif instruction_parsed[0] =='turn off':
-                new_value = 'False'
-                for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
-                    for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
-                        self[row][column] = new_value
+                        try:
+                            self.grid[row][column] = True
+                        except IndexError:
+                            continue
                         
+            elif instruction_parsed[0] =='turn off':
+                for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
+                    for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
+                        try:
+                            self.grid[row][column] = False
+                        except IndexError:
+                            continue            
             elif instruction_parsed[0] =='switch ':
                 for row in range(instruction_parsed[1][0], instruction_parsed[1][1]+1):
                     for column in range(instruction_parsed[2][0], instruction_parsed[2][1]+1):
-                        self[row][column] = not self[row][column]
-        
+                        try:
+                            self.grid[row][column] = not self.grid[row][column]
+                        except IndexError:
+                            continue
+            
         return None
     
     
