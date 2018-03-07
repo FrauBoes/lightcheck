@@ -3,7 +3,8 @@
 """Main module."""
 
 import re
-from lightcheck import utils as ut
+import lightcheck.utils as ut
+
 
 class LightCheck:
     

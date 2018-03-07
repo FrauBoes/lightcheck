@@ -8,14 +8,14 @@ from urllib.request import urlopen
 import re
 
 # parse input from url or local file
-def parseFile(inp):
+def parseFile(input):
     
     # read from url
-    if inp.startswith('http'):
+    if input.startswith('http'):
         N, instructions = None, []
-        f = urlopen(inp)
+        f = urlopen(input)
         
-        with urlopen(inp) as f:
+        with urlopen(input) as f:
             N = int(f.readline())  # get size of grid
             for line in f.readlines():  # get instructions 
                 # cast byte type to string and strip '\n' from each line
@@ -26,7 +26,7 @@ def parseFile(inp):
     else:
         N, instructions = None, []
         
-        with open(inp, 'r') as f:
+        with open(input, 'r') as f:
             N = int(f.readline())  # get size of grid
             for line in f.readlines():  # get instructions 
                 instructions.append(line.rstrip('\n'))  # strip '\n' from each line

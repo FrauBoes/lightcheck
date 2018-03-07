@@ -6,9 +6,9 @@
 import sys
 import pytest
 from click.testing import CliRunner
-from lightcheck import lightcheck as lc
-from lightcheck import utils as ut
-from lightcheck import cli
+import lightcheck.lightclass as lc
+import lightcheck.utils as ut
+import lightcheck.cli
 
  
 def test_read_file():

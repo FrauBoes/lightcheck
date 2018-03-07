@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 encoding//lightcheck/__init__.py=utf-8
 encoding//lightcheck/cli.py=utf-8
-encoding//lightcheck/lightcheck.py=utf-8
+encoding//lightcheck/lightclass.py=utf-8
 encoding//lightcheck/utils.py=UTF-8
 encoding//tests/test_lightcheck.py=utf-8
 encoding/setup.py=utf-8
