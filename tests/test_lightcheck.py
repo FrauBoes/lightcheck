@@ -5,12 +5,12 @@
 
 import sys
 import pytest
+import numpy as np
 from click.testing import CliRunner
 import lightcheck.lightclass as lc
 import lightcheck.utils as ut
-import lightcheck.cli
 
- 
+
 def test_read_file():
     """
     Assert that input is parsed
@@ -37,8 +37,9 @@ def test_create_light():
     """
     Assert that LightCheck instance is invoked.
     """
-    lights = lc.LightCheck(0)
-    assert lights is not None
+    lights = lc.LightCheck(3)
+    test_grid = np.array([[False, False, False], [False, False, False], [False, False, False]])
+    np.testing.assert_array_equal(lights.grid, test_grid)
 
 
 def test_apply():
@@ -48,24 +49,36 @@ def test_apply():
     1. Operation for instruction 'turn on' is working correctly.
     2. Operation for instruction 'turn off' is working correctly.
     3. Operation for instruction 'switch ' is working correctly.
-    4. + 5. No operations are executed for unknown instruction.
-    6. Instruction that exceeds the grid's boundaries is only executed within the area of the grid.
+    4. No operations are executed for unknown instruction.
+    5. Instruction that exceeds the grid's boundaries is only executed within the area of the grid.
+    6. Instruction can refer to coordinates from lower to higher or higher to lower.
     
     """
     lights = lc.LightCheck(2)
-    lights.apply('turn on 0,0 through 1,1')
-    assert lights.grid == [[True, True], [True, True]]
-    lights.apply('turn off 0,0 through 1,1')
-    assert lights.grid == [[False, False], [False, False]]
-    lights.apply('switch 0,0 through 1,1')
-    assert lights.grid == [[True, True], [True, True]]
-    lights.apply('sitch 0,0 through 1,1')
-    assert lights.grid == [[True, True], [True, True]]
-    lights.apply('tur on 0,0 through 1,1')
-    assert lights.grid == [[True, True], [True, True]]
-    lights.apply('turn off 0,0 through 2,2')
-    assert lights.grid == [[False, False], [False, False]]
     
+    test_grid = np.array([[True, True], [True, True]])
+    lights.apply('turn on 0,0 through 1,1')
+    np.testing.assert_array_equal(lights.grid, test_grid)
+    
+    test_grid = np.array([[False, False], [False, False]])
+    lights.apply('turn off 0,0 through 1,1')
+    np.testing.assert_array_equal(lights.grid, test_grid)
+    
+    test_grid = np.array([[True, True], [True, True]])
+    lights.apply('switch 0,0 through 1,1')
+    np.testing.assert_array_equal(lights.grid, test_grid)
+    
+    lights.apply('switc 0,0 through 1,1')
+    np.testing.assert_array_equal(lights.grid, test_grid)
+    
+    test_grid = np.array([[True, False], [True, True]])
+    lights.apply('switch 1,0 through 2,0')
+    np.testing.assert_array_equal(lights.grid, test_grid)
+    
+    test_grid = np.array([[False, True], [True, True]])
+    lights.apply('switch 1,0 through 0,0')
+    np.testing.assert_array_equal(lights.grid, test_grid)
+        
     
 def test_parse_command():
     """
@@ -83,11 +96,3 @@ def test_count():
     test_list = lc.LightCheck(3)
     assert test_list.count() == 0
     
-# """Test the CLI."""
-# runner = CliRunner()
-# result = runner.invoke(cli.main)
-# assert result.exit_code == 0
-# assert 'lightcheck.cli.main' in result.output
-# help_result = runner.invoke(cli.main, ['--help'])
-# assert help_result.exit_code == 0
-# assert '--help  Show this message and exit.' in help_result.output
